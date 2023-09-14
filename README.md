@@ -5,7 +5,7 @@
 <br>
 
 ## Introduction
-This is a Singe Page Application made with React that utilizes React Forms to handle user input for login and text-to-sign language translation.
+This is a Single Page Application made with React that utilizes React Forms to handle user input for login and text-to-sign language translation.
 
 ## Figma
 TBA
@@ -13,5 +13,5 @@ TBA
 ## Content
 TBA
 
-## Usage
-TBA
+## Demo
+The project is available for testing here: <a href="https://js-a2-signlangtranslator.vercel.app/">Live demo</a>
