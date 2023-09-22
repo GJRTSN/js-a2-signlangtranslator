@@ -30,7 +30,7 @@ function Translator() {
     let images = [];
     for (const letter of inputText) {
       console.log(letter);
-      let imagePath = `./${letter}.png`;
+      let imagePath = `./${letter.toLowerCase()}.png`;
       images.push(imagePath);
     }
     return images
