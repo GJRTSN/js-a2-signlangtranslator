@@ -30,10 +30,11 @@ function LoginForm() {
     }
 
     // Dispatch the login action to the Redux store
-    dispatch(login(data.username));
+    dispatch(login(user));
 
-    // Save username in local storage
-    localStorage.setItem("currentUser", data.username);
+    // Save username and id in local storage
+    localStorage.setItem("currentUser", user.username);
+    localStorage.setItem("currentUserId", user.id.toString());
 
     // Navigate to translator after login
     navigate("/translator");

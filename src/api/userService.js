@@ -1,13 +1,12 @@
 import { apiHeaders } from "./config";
 
-const baseUrl = "https://branch-amplified-hydrofoil.glitch.me/users";
+const baseUrl = "https://branch-amplified-hydrofoil.glitch.me/translations";
 
-// General-purpose request function that takes custom error messages.
 const requestData = async (url, options, errorMsg) => {
   try {
     const response = await fetch(url, options);
     if (!response.ok) {
-      throw new Error(errorMsg || response.statusText); // Use custom error message if provided.
+      throw new Error(errorMsg || response.statusText);
     }
     return [null, await response.json()];
   } catch (error) {
@@ -15,7 +14,7 @@ const requestData = async (url, options, errorMsg) => {
   }
 };
 
-// Create a new user with custom error message.
+// Create a new user
 const createNewUser = async (username) => {
   return requestData(
     baseUrl,
@@ -28,7 +27,7 @@ const createNewUser = async (username) => {
   );
 };
 
-// Fetch an existing user with custom error message.
+// Fetch an existing user
 const findExistingUser = async (username) => {
   return requestData(
     `${baseUrl}?username=${username}`,
@@ -37,18 +36,50 @@ const findExistingUser = async (username) => {
   );
 };
 
-// Manages user login. Will search for an existing user or create a new one if not found.
+// Search for existing user or create new
 export const loginUser = async (username) => {
   const [error, user] = await findExistingUser(username);
   if (error) return [error, null];
   return user.length ? [null, user.pop()] : createNewUser(username);
 };
 
-// Fetch a user by their ID with custom error message.
+// Fetch a user by their ID.
 export const findUserById = async (userId) => {
   return requestData(
     `${baseUrl}/${userId}`,
     null,
     `Unable to find user with ID: ${userId}.`
   );
+};
+
+// Update a users translations
+export const updateTranslations = async (userId, newTranslation) => {
+  try {
+    // Get current data
+    const [errorFetching, userData] = await findUserById(userId);
+    if (errorFetching) {
+      throw new Error(errorFetching);
+    }
+
+    // Append new translation to current list
+    const updatedTranslations = [...userData.translations, newTranslation];
+
+    // Send updated list back to API
+    const response = await fetch(`${baseUrl}/${userId}`, {
+      method: "PUT",
+      headers: apiHeaders(),
+      body: JSON.stringify({
+        ...userData,
+        translations: updatedTranslations,
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error("Unable to update translations");
+    }
+
+    return [null, await response.json()];
+  } catch (error) {
+    return [error.message, null];
+  }
 };

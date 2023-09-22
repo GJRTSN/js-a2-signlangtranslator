@@ -1,14 +1,25 @@
-import React, { useEffect, useState } from "react";
-import TranslationImage from "./TranslationImage";
+import React, { useState } from "react";
+import { useSelector } from "react-redux";
+import { updateTranslations } from "../api/userService";
 import TranslationResult from "./TranslationResult";
 function Translator() {
-
-  const [input, setInput] = useState("")
+  const [inputText, setInputText] = useState("");
   const [showTranslation, setShowTranslation] = useState(false)
+  // Get userId from store
+  const userId = useSelector((state) => state.user.userId);
 
-  function translateButtonClickEvent() {
-    setShowTranslation(true)
-  }
+  const handleSubmit = async () => {
+    if (inputText.trim()) {
+      // Call API function to update translations
+      const [error] = await updateTranslations(userId, inputText);
+      if (error) {
+        console.error("Failed to update translations:", error);
+        return;
+      }
+      setInputText("");
+      setShowTranslation(true)
+    }
+  };
 
   function translate(text) {
     let images = []
@@ -31,16 +42,15 @@ function Translator() {
       >
         <h3 className="text-2xl font-bold mr-4">Start here!</h3>
         <input
-          name="username"
+          name="sentence"
+          value={inputText}
+          onChange={(e) => setInputText(e.target.value)}
           placeholder="Write the sentence you want to translate"
-          className="text-black flex-grow px-2 py-1 border rounded text-2xl" // Added flex-grow
-          value={input}
-          onChange={e => setInput(e.target.value)}
+          className="text-black flex-grow px-2 py-1 border rounded text-2xl"
         />
         <button
-          type="submit"
+          onClick={handleSubmit}
           className="ml-2 bg-indigo-700 px-4 rounded hover:bg-indigo-300"
-          onClick={translateButtonClickEvent}
         >
           Go
         </button>
@@ -55,7 +65,7 @@ function Translator() {
           id="resultsContainer"
           className="bg-white rounded-md h-48 w-full mt-4 flex flex-row"
         >
-          {showTranslation && (<TranslationResult translationImages={translate(input)}/>)}
+          {showTranslation && (<TranslationResult translationImages={translate(inputText)}/>)}
         </div>
       </div>
     </div>
