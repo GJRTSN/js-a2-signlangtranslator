@@ -4,7 +4,7 @@ import { updateTranslations } from "../api/userService";
 import TranslationResult from "./TranslationResult";
 function Translator() {
   const [inputText, setInputText] = useState("");
-  const [showTranslation, setShowTranslation] = useState(false)
+  const [showTranslation, setShowTranslation] = useState(false);
   // Get userId from store
   const userId = useSelector((state) => state.user.userId);
 
@@ -17,18 +17,18 @@ function Translator() {
         return;
       }
       setInputText("");
-      setShowTranslation(true)
+      setShowTranslation(true);
     }
   };
 
   function translate(text) {
-    let images = []
+    let images = [];
     for (const letter of text) {
-      console.log(letter)
-      let imagePath = `./${letter}.png`
-      images.push(imagePath)
+      console.log(letter);
+      let imagePath = `./${letter}.png`;
+      images.push(imagePath);
     }
-    return images
+    return images;
   }
 
   return (
@@ -65,12 +65,13 @@ function Translator() {
           id="resultsContainer"
           className="bg-white rounded-md h-48 w-full mt-4 flex flex-row"
         >
-          {showTranslation && (<TranslationResult translationImages={translate(inputText)}/>)}
+          {showTranslation && (
+            <TranslationResult translationImages={translate(inputText)} />
+          )}
         </div>
       </div>
     </div>
-  )
+  );
 }
-  
 
 export default Translator;
