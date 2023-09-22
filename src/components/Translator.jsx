@@ -4,7 +4,8 @@ import { updateTranslations } from "../api/userService";
 import TranslationResult from "./TranslationResult";
 function Translator() {
   const [inputText, setInputText] = useState("");
-  const [showTranslation, setShowTranslation] = useState(false);
+  const [renderTranslation, setRenderTranslation] = useState(false);
+  const [translatedText, setTranslatedText] = useState("") 
   // Get userId from store
   const userId = useSelector((state) => state.user.userId);
 
@@ -16,19 +17,23 @@ function Translator() {
         console.error("Failed to update translations:", error);
         return;
       }
+      setRenderTranslation(true)
+      setTranslatedText(translate(inputText))
       setInputText("");
-      setShowTranslation(true);
     }
-  };
+  }
 
-  function translate(text) {
+
+ 
+
+  function translate(inputText) {
     let images = [];
-    for (const letter of text) {
+    for (const letter of inputText) {
       console.log(letter);
       let imagePath = `./${letter}.png`;
       images.push(imagePath);
     }
-    return images;
+    return images
   }
 
   return (
@@ -65,13 +70,14 @@ function Translator() {
           id="resultsContainer"
           className="bg-white rounded-md h-48 w-full mt-4 flex flex-row"
         >
-          {showTranslation && (
-            <TranslationResult translationImages={translate(inputText)} />
+          {renderTranslation && (
+            <TranslationResult translationImages={translatedText} />
           )}
         </div>
       </div>
     </div>
   );
 }
+
 
 export default Translator;
