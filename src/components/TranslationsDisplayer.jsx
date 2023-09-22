@@ -2,11 +2,11 @@ import TranslationsListItem from "./TranslationListItem"
 
 function TranslationsList(props) {
 
-    const { translations } = props;
-    console.log(translations)
+    const { recentTranslations } = props;
+    console.log(recentTranslations)
     return (
         <ul>
-        {translations.map((translation) => (
+        {recentTranslations.map((translation) => (
             <TranslationsListItem text={translation} />
         ))}
         </ul>

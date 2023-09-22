@@ -4,21 +4,23 @@ import { getTranslationsAsync, setTestUser, selectUser, getTestUser } from "../r
 import TranslationsList from "./TranslationsDisplayer"
 
 
-function UserProfile(props) {
-    const [translations, setTranslations] = useState([])
-    
+function UserProfile() {
+    const [recentTranslations, setRecentTranslations] = useState([])
+    localStorage.setItem("currentUser", "dewaldels")
+    const username = localStorage.getItem("currentUser")
+    let id = 1
 
-    const dispatch = useDispatch()
-    dispatch(getTestUser)
-    localStorage.setItem("currentUser", username)
-    let userData = useSelector((state) => state.user)
-    useEffect(() => (getTranslations()), [])
+    useEffect(() => (getRecentTranslations()), [])
 
-    function getTranslations() {
-        fetch("https://branch-amplified-hydrofoil.glitch.me/translations/1")
-        .then(result => result.json())
-        .then(userResult => setTranslations(userResult.translations))
-        }
+
+    function getRecentTranslations() {
+      fetch(`https://branch-amplified-hydrofoil.glitch.me/translations/${id}`)
+      .then(result => result.json())
+      .then(userResult => userResult.translations)
+      .then(translations => translations.reverse())
+      .then(sortedByRecent => sortedByRecent.slice(0,10))
+      .then(recent => setRecentTranslations(recent))
+      }
 
 
     return (
@@ -26,12 +28,11 @@ function UserProfile(props) {
           {localStorage.getItem("currentUser") != null && (
             <h2>{username} is logged in</h2>
           )}
-          {translations.length > 0 && (
-            <TranslationsList translations = {translations}></TranslationsList>
+          {recentTranslations.length > 0 && (
+            <TranslationsList recentTranslations = {recentTranslations}></TranslationsList>
           )}
         </div>
       );
-    
 }
 
 export default UserProfile
