@@ -1,6 +1,6 @@
 import { apiHeaders } from "./config";
 
-const baseUrl = "https://branch-amplified-hydrofoil.glitch.me/users";
+const baseUrl = "https://branch-amplified-hydrofoil.glitch.me/translations";
 
 // General-purpose request function that takes custom error messages.
 const requestData = async (url, options, errorMsg) => {
