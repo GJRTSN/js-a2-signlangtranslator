@@ -1,38 +1,19 @@
-import { useEffect, useState } from "react"
-import { useSelector, useDispatch } from "react-redux" 
-import { getTranslationsAsync, setTestUser, selectUser, getTestUser } from "../redux/userSlice"
-import TranslationsList from "./TranslationsDisplayer"
-
+import { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 
 function UserProfile() {
-    const [recentTranslations, setRecentTranslations] = useState([])
-    localStorage.setItem("currentUser", "dewaldels")
-    const username = localStorage.getItem("currentUser")
-    let id = 1
+  const userId = useSelector((state) => state.user.userId);
+  const username = useSelector((state) => state.user.username);
 
-    useEffect(() => (getRecentTranslations()), [])
-
-
-    function getRecentTranslations() {
-      fetch(`https://branch-amplified-hydrofoil.glitch.me/translations/${id}`)
-      .then(result => result.json())
-      .then(userResult => userResult.translations)
-      .then(translations => translations.reverse())
-      .then(sortedByRecent => sortedByRecent.slice(0,10))
-      .then(recent => setRecentTranslations(recent))
-      }
-
-
-    return (
-        <div>
-          {localStorage.getItem("currentUser") != null && (
-            <h2>{username} is logged in</h2>
-          )}
-          {recentTranslations.length > 0 && (
-            <TranslationsList recentTranslations = {recentTranslations}></TranslationsList>
-          )}
-        </div>
-      );
+  return (
+    <div
+      id="resultBox"
+      className=" rounded-xl h-3/5 flex flex-col bg-blue-500 w-full p-8 m-8"
+    >
+      <h2>Username: {username}</h2>
+      <h2>User ID: {userId}</h2>
+    </div>
+  );
 }
 
-export default UserProfile
+export default UserProfile;

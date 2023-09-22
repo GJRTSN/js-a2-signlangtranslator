@@ -83,3 +83,30 @@ export const updateTranslations = async (userId, newTranslation) => {
     return [error.message, null];
   }
 };
+
+// Remove a users translations
+export const clearUserTranslations = async (userId) => {
+  try {
+    // Get current data
+    const [errorFetching, userData] = await findUserById(userId);
+    if (errorFetching) {
+      throw new Error(errorFetching);
+    }
+    const response = await fetch(`${baseUrl}/${userId}`, {
+      method: "PUT",
+      headers: apiHeaders(),
+      body: JSON.stringify({
+        ...userData,
+        translations: [],
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error("Unable to clear translations");
+    }
+
+    return [null, await response.json()];
+  } catch (error) {
+    return [error.message, null];
+  }
+};

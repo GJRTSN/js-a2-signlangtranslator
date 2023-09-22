@@ -55,7 +55,7 @@ function Translator() {
           id="resultsContainer"
           className="bg-white rounded-md h-48 w-full mt-4"
         >
-          <p className="text-black">Results go here</p>
+          <p className="text-gray-300">Results go here</p>
         </div>
       </div>
     </div>

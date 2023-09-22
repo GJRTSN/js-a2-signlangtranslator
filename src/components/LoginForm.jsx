@@ -15,7 +15,6 @@ function LoginForm() {
     // Check if the user is already logged in
     const loggedInUser = localStorage.getItem("currentUser");
     if (loggedInUser) {
-      // If logged in, redirect to the translation page
       navigate("/translator");
     }
   }, []);
