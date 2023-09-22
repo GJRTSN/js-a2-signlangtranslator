@@ -1,25 +1,24 @@
-import { BrowserRouter, Route, NavLink, Routes } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import React, { useEffect } from "react";
-import LoginPage from "./components/LoginPage";
-import TranslatePage from "./components/TranslatePage";
-import { initializeUser } from "./redux/userSlice";
+import logo from './logo.svg';
+import './App.css';
+import UserProfilePage from './components/UserProfilePage';
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  NavLink
+} from "react-router-dom"
 
 function App() {
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(initializeUser());
-  }, [dispatch]);
-
   return (
     <div className="App">
+      <header className="App-header">
       <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<LoginPage />}></Route>
-          <Route path="/translator" element={<TranslatePage />}></Route>
-        </Routes>
+      <NavLink to="/userProfile"></NavLink>
+      <Routes>
+        <Route path='userProfile' element={<UserProfilePage/>}></Route>
+      </Routes>
       </BrowserRouter>
+      </header>
     </div>
   );
 }

@@ -1,46 +1,53 @@
-import { createSlice } from "@reduxjs/toolkit";
+import {createAsyncThunk, createSlice} from "@reduxjs/toolkit"
+import { useSelector } from "react-redux"
 
-// Initial state for the user
-const initialState = {
-  userId: null,
-  username: null,
-  isLoggedIn: false,
-};
+const urlId= 1
 
-// Updating the user state.
-const userSlice = createSlice({
-  name: "user",
-  initialState,
-  reducers: {
-    // Initialize the user state based on stored data in local storage.
-    initializeUser: (state) => {
-      const storedUser = localStorage.getItem("currentUser");
-      const storedUserId = localStorage.getItem("currentUserId");
-      if (storedUser && storedUserId) {
-        state.username = storedUser;
-        state.userId = parseInt(storedUserId, 10); // Convert string back to number
-        state.isLoggedIn = true;
-      }
+const apiBaseURL = "https://branch-amplified-hydrofoil.glitch.me/translations/"
+
+export const getTestUser = createAsyncThunk(
+    'user/testUser',
+    () => {
+        return fetch(`https://branch-amplified-hydrofoil.glitch.me/translations/${urlId}`)
+        .then(response => response.json())
+        .then(testUser => {return testUser})
+
+    }
+)
+
+export const getTranslationsAsync = createAsyncThunk(
+    'getUserTranslations',
+    async () => {
+        const resp = await fetch(`apiBaseURL${urlId}`)
+        const user = resp.json()
+        const translations = user.translations
+        return translations
+    }
+)
+
+export const userSlice = createSlice({
+    name: "user",
+    initialState: {
+        username: null,
+        isLoggedIn: false
     },
-    // Set user state on login
-    login: (state, action) => {
-      state.username = action.payload.username;
-      state.userId = action.payload.id;
-      state.isLoggedIn = true;
+    reducers: {
+        setUser: (state, action) => {
+            state.username = action.payload
+            state.isLoggedIn = true
+        },
+        setTestUser: (state) => {
+            state.username = "testuser"
+            state.isLoggedIn = true
+        }
     },
-    // Reset user state on logout
-    logout: (state) => {
-      localStorage.removeItem("currentUser");
-      localStorage.removeItem("currentUserId");
-      state.username = null;
-      state.userId = null;
-      state.isLoggedIn = false;
-    },
-  },
-});
+    extraReducers: {
+        [getTestUser.fulfilled]: (state, action) => {
+            // state.username = action.payload[0]
+            return action.payload
+        },
+    }
+})
 
-// Make actions usable in components
-export const { initializeUser, login, logout } = userSlice.actions;
-
-// Make reducer usable in Redux store
-export default userSlice.reducer;
+export const {setUser} = userSlice.actions
+export const userReducer = userSlice.reducer
