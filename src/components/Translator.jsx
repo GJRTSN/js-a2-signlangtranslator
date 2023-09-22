@@ -1,6 +1,26 @@
-import React, { useEffect } from "react";
+import React, { useState } from "react";
+import { useSelector } from "react-redux";
+import { updateTranslations } from "../api/userService";
 
 function Translator() {
+  const [inputText, setInputText] = useState("");
+
+  // Get userId from store
+  const userId = useSelector((state) => state.user.userId);
+
+  const handleSubmit = async () => {
+    if (inputText.trim()) {
+      // Call API function to update translations
+      const [error] = await updateTranslations(userId, inputText);
+      if (error) {
+        console.error("Failed to update translations:", error);
+        return;
+      }
+      // Clear input to allow new sentence
+      setInputText("");
+    }
+  };
+
   return (
     <div
       id="translatorContainer"
@@ -12,12 +32,14 @@ function Translator() {
       >
         <h3 className="text-2xl font-bold mr-4">Start here!</h3>
         <input
-          name="username"
+          name="sentence"
+          value={inputText}
+          onChange={(e) => setInputText(e.target.value)}
           placeholder="Write the sentence you want to translate"
-          className="text-black flex-grow px-2 py-1 border rounded text-2xl" // Added flex-grow
+          className="text-black flex-grow px-2 py-1 border rounded text-2xl"
         />
         <button
-          type="submit"
+          onClick={handleSubmit}
           className="ml-2 bg-indigo-700 px-4 rounded hover:bg-indigo-300"
         >
           Go

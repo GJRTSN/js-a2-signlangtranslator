@@ -14,7 +14,7 @@ function TranslatePage() {
         Welcome to the translator, {username}! - your ID is = {userId}
       </p>
       <Logout />
-      <div>{/* <Translator /> */}</div>
+      <Translator />
     </div>
   );
 }
