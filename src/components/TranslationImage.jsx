@@ -8,7 +8,13 @@ function TranslationImage(props) {
   console.log(images);
   let imagePath = props.imagePath;
   console.log(imagePath);
-  return <img src={images[imagePath]} alt="translated_image"></img>;
+  return (
+    <img
+      src={images[imagePath]}
+      className="w-12 h-12"
+      alt="translated_image"
+    ></img>
+  );
 }
 
 export default TranslationImage;
