@@ -5,9 +5,7 @@ function TranslationImage(props) {
   }
 
   importAll(require.context("../img", false));
-  console.log(images);
   let imagePath = props.imagePath;
-  console.log(imagePath);
   return (
     <img
       src={images[imagePath]}

@@ -29,7 +29,6 @@ function Translator() {
   function translate(inputText) {
     let images = [];
     for (const letter of inputText) {
-      console.log(letter);
       let imagePath = `./${letter.toLowerCase()}.png`;
       images.push(imagePath);
     }
