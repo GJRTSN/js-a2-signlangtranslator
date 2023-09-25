@@ -10,7 +10,11 @@ This is a Single Page Application made with React that utilizes React Forms to h
 
 ## Content
 
-The project includes the files for the project as well as an image of the React Component Tree being used.
+This repo contains all the files created for- and necessary to run this project.
+
+## Component Tree
+
+![react-component-tree](https://imgur.com/a/24E5jQP)
 
 ## Installation
 
