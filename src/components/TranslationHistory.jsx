@@ -31,7 +31,7 @@ function TranslationHistory() {
     if (error) {
       console.error("Unable to clear translations:", error);
     } else {
-      // Clear the translations from local state after successful API call
+      // Clear the translations from local state after API call
       setRecentTranslations([]);
     }
   }
