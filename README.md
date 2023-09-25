@@ -19,6 +19,7 @@ To install and configure the project on your own, follow these steps:
 - Clone the github repository: https://github.com/GJRTSN/js-a2-signlangtranslator/tree/master/src
 - Install dependencies with "npm install"
 - Deploy the API found here: https://gitlab.com/noroff-accelerate/javascript/projects/noroff-api/
+- Configure an API key and add it to a .env file
 
 ## Demo
 
