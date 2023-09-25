@@ -14,7 +14,7 @@ This repo contains all the files created for- and necessary to run this project.
 
 ## Component Tree
 
-![react-component-tree](https://imgur.com/a/24E5jQP)
+![react-component-tree](/react-component-tree.png)
 
 ## Installation
 
