@@ -5,13 +5,21 @@
 <br>
 
 ## Introduction
-This is a Single Page Application made with React that utilizes React Forms to handle user input for login and text-to-sign language translation.
 
-## Figma
-TBA
+This is a Single Page Application made with React that utilizes React Forms to handle user input for login and text-to-sign language translation. The app includes a login feature that allows users to log in and save their translations to an external API.
 
 ## Content
-TBA
+
+The project includes the files for the project as well as an image of the React Component Tree being used.
+
+## Installation
+
+To install and configure the project on your own, follow these steps:
+
+- Clone the github repository: https://github.com/GJRTSN/js-a2-signlangtranslator/tree/master/src
+- Install dependencies with "npm install"
+- Deploy the API found here: https://gitlab.com/noroff-accelerate/javascript/projects/noroff-api/
 
 ## Demo
+
 The project is available for testing here: <a href="https://js-a2-signlangtranslator.vercel.app/">Live demo</a>
